@@ -1,0 +1,41 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.env
+
+# Distribution and packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.tar.gz
+
+# VS Code settings
+.vscode/
+
+# IDEs (e.g., PyCharm, Sublime, etc.)
+.idea/
+*.sublime-workspace
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# FastAPI auto-generated files
+instance/
+*.db
+
+# pytest cache
+.cache/
