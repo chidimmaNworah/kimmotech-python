@@ -46,7 +46,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         return {"access_token": access_token, "token_type": "bearer"}
     except Exception as e:
         print(f"Login Error: {e}")  # Log the actual error
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=500, detail="Something went wrong")
 
 @router.post("/messages", response_model=MessageResponse)
 def create_message(messages: MessageCreate, db: Session = Depends(get_db)):
@@ -68,7 +68,7 @@ def get_messages(db: Session = Depends(get_db)):
 @router.post("/comments", response_model=CommentResponse)
 def create_comment(comment: CommentCreate, db: Session = Depends(get_db)):
     new_comment = Comment(
-        job_id=comment.job_id,
+        career_id=comment.career_id,
         name=comment.name,
         email=comment.email,
         content=comment.content
@@ -78,7 +78,7 @@ def create_comment(comment: CommentCreate, db: Session = Depends(get_db)):
     db.refresh(new_comment)
     return new_comment
 
-@router.get("/comments/{job_id}", response_model=List[CommentResponse])
-def get_comments(job_id: int, db: Session = Depends(get_db)):
-    comments = db.query(Comment).filter(Comment.job_id == job_id).all()
+@router.get("/comments/{career_id}", response_model=List[CommentResponse])
+def get_comments(career_id: int, db: Session = Depends(get_db)):
+    comments = db.query(Comment).filter(Comment.career_id == career_id).all()
     return comments  # ✅ Always returns a list (empty or filled)

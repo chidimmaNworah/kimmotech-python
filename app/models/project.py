@@ -1,7 +1,7 @@
   
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import relationship
-from ..database import Base
+from ..database import Base, engine
 
 class Project(Base):
     __tablename__ = "projects"

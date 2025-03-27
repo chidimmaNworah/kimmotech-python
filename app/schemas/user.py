@@ -3,7 +3,7 @@ from typing import Optional, List
 from datetime import datetime
 
 class CommentBase(BaseModel):
-    job_id: int
+    career_id: int
     name: str
     email: EmailStr
     content: str
@@ -14,7 +14,7 @@ class CommentCreate(CommentBase):
 class CommentResponse(CommentBase):
     id: int
     created_at: datetime
-    job_id: int
+    career_id: int
 
     class Config:
         from_attributes = True

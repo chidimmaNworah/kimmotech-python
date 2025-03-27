@@ -10,6 +10,13 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_admin = Column(Boolean, default=True )
 
+    # @classmethod
+    # def hash_password(cls, password: str) -> str:
+    #     """Hashes a password using bcrypt."""
+    #     return pwd_context.hash(password)
+
+User.metadata.create_all(bind=engine)
+
 class Message(Base):
     __tablename__ = "messages"
 
@@ -19,15 +26,19 @@ class Message(Base):
     message = Column(Text, nullable=False)
     created_at = Column(DateTime, server_default=func.now())
 
+Message.metadata.create_all(bind=engine)
+
 class Comment(Base):
     __tablename__ = "comments"
 
     id = Column(Integer, primary_key=True, index=True)
-    job_id = Column(Integer, ForeignKey("jobs.id", ondelete="CASCADE"), nullable=False)
+    career_id = Column(Integer, ForeignKey("careers.id", ondelete="CASCADE"), nullable=False)
     name = Column(String(255), nullable=False)  # Name of the commenter
     email = Column(String(255), nullable=False)  # Email of the commenter
     content = Column(Text, nullable=False)  # Comment content
     created_at = Column(DateTime, server_default=func.now())
 
     # Define relationship with Job
-    job = relationship("Job", back_populates="comments")
+    career = relationship("Career", back_populates="comments")
+
+# Comment.metadata.create_all(bind=engine)

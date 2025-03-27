@@ -9,3 +9,5 @@ class Category(Base):
     name = Column(String(100), unique=True, nullable=False)
 
     projects = relationship("Project", back_populates="category")
+
+# Category.metadata.create_all(bind=engine)

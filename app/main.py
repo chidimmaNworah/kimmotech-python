@@ -4,9 +4,11 @@ from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
+
+from .routes import careers
 from .database import engine, Base, SessionLocal
 from .crud import create_about, get_abouts, create_admin_user
-from .routes import auth, users, about, category, project, expertise, jobs, newsletter
+from .routes import auth, users, about, category, project, expertise, newsletter, careers, careerCategory
 from dotenv import load_dotenv
 import cloudinary.uploader
 
@@ -24,7 +26,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000", "https://kimmotech.net"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -42,10 +44,11 @@ app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(users.router, prefix="/users", tags=["Users && Messages && Comments"])
 app.include_router(about.router, prefix="/about", tags=["About"])
 app.include_router(category.router, prefix="/category", tags=["Category"])
+app.include_router(careerCategory.router, prefix="/career", tags=["CareerCategory"])
 app.include_router(project.router, prefix="/project", tags=["Projects"])
 app.include_router(expertise.router, prefix="/expertise", tags=["Expertise"])
-app.include_router(jobs.router, prefix="/jobs", tags=["Jobs"])
-app.include_router(newsletter.router, prefix="/jobs", tags=["Jobs/newsletters"])
+app.include_router(careers.router, prefix="/careers", tags=["Careers"])
+app.include_router(newsletter.router, prefix="/newsletter", tags=["newsletters"])
 
 
 Base.metadata.create_all(bind=engine)

@@ -10,4 +10,4 @@ class Expertise(Base):
     description = Column(String)
     img_url = Column(JSON, default=[])
 
-Expertise.metadata.create_all(bind=engine)
+# Expertise.metadata.create_all(bind=engine)

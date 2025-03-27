@@ -3,6 +3,7 @@ from .models import About, Category, User, Project, Expertise
 from .schemas import AboutCreate, CategoryCreate, ProjectCreate, ProjectResponse, ExpertiseBase
 import os
 from dotenv import load_dotenv
+from .utils.security import pwd_context
 
 load_dotenv()
 
@@ -43,7 +44,7 @@ def create_admin_user(db: Session):
     existing_admin = db.query(User).filter(User.username == admin_username).first()
 
     if not existing_admin:
-        hashed_password = User.hash_password(admin_password)
+        hashed_password = pwd_context.hash(admin_password)
         admin_user = User(username=admin_username, hashed_password=hashed_password, is_admin=True)
         db.add(admin_user)
         db.commit()

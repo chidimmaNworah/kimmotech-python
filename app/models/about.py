@@ -10,4 +10,4 @@ class About(Base):
     description = Column(Text, nullable=False)
     img_url = Column(String(255), nullable=False)
 
-About.metadata.create_all(bind=engine)
+# About.metadata.create_all(bind=engine)
