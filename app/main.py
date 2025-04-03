@@ -26,18 +26,11 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://kimmotech.net"],
+    allow_origins=["http://localhost:3000", "https://kimmotech.net", "https://www.kimmotech.net"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 # Include routers
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
@@ -53,9 +46,9 @@ app.include_router(newsletter.router, prefix="/newsletter", tags=["newsletters"]
 
 Base.metadata.create_all(bind=engine)
 
-db = SessionLocal()
-create_admin_user(db)
-db.close()
+# db = SessionLocal()
+# create_admin_user(db)
+# db.close()
 
 @app.get("/")
 def home():

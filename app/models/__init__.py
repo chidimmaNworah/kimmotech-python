@@ -8,6 +8,6 @@ from .expertise import Expertise
 from .newsletter import Newsletter
 from ..database import Base, engine
 
-print("Creating tables in order...")
-Base.metadata.create_all(bind=engine)
-print("Tables created successfully.")
+# print("Creating tables in order...")
+# Base.metadata.create_all(bind=engine)
+# print("Tables created successfully.")

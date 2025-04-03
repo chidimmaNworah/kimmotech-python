@@ -19,7 +19,7 @@ if not DATABASE_URL:
     raise ValueError("DATABASE_URL is not set in environment variables!")
 
 # Create database engine
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, pool_size=30, max_overflow=10,)
 
 # Create session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

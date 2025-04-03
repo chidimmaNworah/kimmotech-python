@@ -47,6 +47,7 @@ def add_career(
 
 @router.get("/careers/", response_model=List[CareerResponse])
 def list_careers(db: Session = Depends(get_db)):
+    print(list_careers)
     return db.query(Career).all()
 
 @router.get("/careers/{career_id}", response_model=CareerResponse)
