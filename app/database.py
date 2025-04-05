@@ -11,9 +11,9 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 
-# DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-DATABASE_URL = os.getenv("DB_URL")
+# DATABASE_URL = os.getenv("DB_URL")
 
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL is not set in environment variables!")
