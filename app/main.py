@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 from passlib.context import CryptContext
@@ -11,6 +11,8 @@ from .crud import create_about, get_abouts, create_admin_user
 from .routes import auth, users, about, category, project, expertise, newsletter, careers, careerCategory
 from dotenv import load_dotenv
 import cloudinary.uploader
+from .database import get_db
+from .models import Career
 
 load_dotenv()
 
@@ -31,6 +33,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+app.get("/careers/test-db")
+def test_db_connection(db: Session = Depends(get_db)):
+    try:
+        careers = db.query(Career).all()
+        return {"status": "ok", "count": len(careers)}
+    except Exception as e:
+        return {"error": str(e)}
 
 # Include routers
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
