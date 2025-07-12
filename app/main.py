@@ -11,7 +11,7 @@ from .crud import create_about, get_abouts, create_admin_user
 from .routes import auth, users, about, category, project, expertise, newsletter, careers, careerCategory
 from dotenv import load_dotenv
 import cloudinary.uploader
-from .database import get_db
+from .database import get_db, get_engine
 from .models import Career
 
 load_dotenv()
@@ -34,13 +34,18 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.get("/careers/test-db")
+@app.get("/careers/test-db")
 def test_db_connection(db: Session = Depends(get_db)):
     try:
+        print("Testing DB connection...")
         careers = db.query(Career).all()
         return {"status": "ok", "count": len(careers)}
     except Exception as e:
         return {"error": str(e)}
+    
+# ✅ Create Tables (Only after engine is initialized)
+engine = get_engine()
+Base.metadata.create_all(bind=engine)
 
 # Include routers
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
@@ -52,13 +57,6 @@ app.include_router(project.router, prefix="/project", tags=["Projects"])
 app.include_router(expertise.router, prefix="/expertise", tags=["Expertise"])
 app.include_router(careers.router, prefix="/careers", tags=["Careers"])
 app.include_router(newsletter.router, prefix="/newsletter", tags=["newsletters"])
-
-
-Base.metadata.create_all(bind=engine)
-
-# db = SessionLocal()
-# create_admin_user(db)
-# db.close()
 
 @app.get("/")
 def home():

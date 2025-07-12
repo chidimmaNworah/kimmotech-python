@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.db
+*.sqlite3
+
+# Virtual env
+.venv/
+venv/
+env/*
+env/
+.env
+
+# Packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.tar.gz
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.ipynb_checkpoints
+
+# Docker (keep Dockerfile unless you're sure)
+# Dockerfile
+# docker-compose.yml
+
+# Logs
+*.log
+
+# Fly config (if you're not using local files)
+fly.toml
+
+# Frontend or static assets (optional)
+node_modules/
+*.jpg
+*.png
+*.mp4
+*.mov
+
+# Test cache
+.cache/
+
+# FastAPI
+instance/
+

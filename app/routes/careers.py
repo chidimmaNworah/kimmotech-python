@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Form
+from fastapi import APIRouter, Depends, HTTPException, Form, Query
 from sqlalchemy.orm import Session
 from typing import List
 from slugify import slugify
@@ -46,9 +46,12 @@ def add_career(
     return new_career
 
 @router.get("/careers/", response_model=List[CareerResponse])
-def list_careers(db: Session = Depends(get_db)):
-    print(list_careers)
-    return db.query(Career).all()
+def list_careers(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    db: Session = Depends(get_db)
+    ):
+    return db.query(Career).offset(skip).limit(limit).all()
 
 @router.get("/careers/{career_id}", response_model=CareerResponse)
 def get_career_detail(career_id: int, db: Session = Depends(get_db)):

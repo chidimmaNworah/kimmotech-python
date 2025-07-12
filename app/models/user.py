@@ -15,7 +15,7 @@ class User(Base):
     #     """Hashes a password using bcrypt."""
     #     return pwd_context.hash(password)
 
-User.metadata.create_all(bind=engine)
+# User.metadata.create_all(bind=engine)
 
 class Message(Base):
     __tablename__ = "messages"
@@ -26,7 +26,7 @@ class Message(Base):
     message = Column(Text, nullable=False)
     created_at = Column(DateTime, server_default=func.now())
 
-Message.metadata.create_all(bind=engine)
+# Message.metadata.create_all(bind=engine)
 
 class Comment(Base):
     __tablename__ = "comments"
